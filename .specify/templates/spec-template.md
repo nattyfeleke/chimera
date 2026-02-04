@@ -65,6 +65,16 @@
 
 [Add more user stories as needed, each with an assigned priority]
 
+## Constitution Compliance (mandatory)
+
+Every feature spec MUST include a short mapping that explains how the feature meets the
+following constitution principles: Code Quality, Testing, User Experience Consistency,
+Performance Requirements, and Observability & Versioning. For each principle either provide
+the concrete artifacts (lint rules, test types, design tokens, benchmarks, metrics) or
+mark the item as out-of-scope with an explicit justification.
+
+Failure to include this mapping will delay Phase 0 approval.
+
 ### Edge Cases
 
 <!--

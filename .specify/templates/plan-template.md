@@ -31,7 +31,17 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Gates (map plan to constitution principles):
+
+- Code Quality: plan MUST list linting/formatting tools, code ownership, and PR size expectations.
+- Testing: plan MUST state required tests (unit/integration/contract), coverage targets for critical modules,
+  and a note that tests are written first and observed to fail before implementation.
+- User Experience: plan MUST reference design system components, accessibility checks, and acceptance UX journeys.
+- Performance: plan MUST include performance goals and any benchmark strategies for critical paths.
+- Observability: plan MUST identify required logs, metrics, and health checks for the feature.
+
+Each gate SHOULD be marked as `Required` or `Optional` in the plan when relevant, and Required gates MUST
+be satisfied (or accompanied by a documented mitigation) before Phase 0 completes.
 
 ## Project Structure
 

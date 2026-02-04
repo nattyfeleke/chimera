@@ -1,50 +1,79 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+
+- Version change: TEMPLATE -> 1.0.0
+- Modified principles:
+
+- Version change: TEMPLATE -> 1.0.0
+- Modified principles:
+  - Code Quality
+  - Test-First & Testing Standards
+  - User Experience Consistency
+  - Performance Requirements
+  - Observability & Versioning
+- Added sections: none (principles added into Core Principles)
+- Removed sections: none
+- Templates updated: .specify/templates/plan-template.md ✅, .specify/templates/spec-template.md ✅, .specify/templates/tasks-template.md ✅
+- Follow-up TODOs: RATIFICATION_DATE left as TODO for project maintainers
+-->
+
+# Chimera Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Code Quality
+All code MUST be readable, maintainable, and reviewable. Code quality requirements:
+- MUST adhere to agreed linters and formatting rules; PRs failing linters are NOT mergeable.
+- MUST include clear naming, minimal cognitive complexity, and inline rationale for non-obvious choices.
+- SHOULD limit PR size to a scope that reviewers can reasonably evaluate in one sitting (suggestion: <400 lines).
+Rationale: High-quality code reduces long-term maintenance cost and increases reviewer throughput.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### Test-First & Testing Standards (NON-NEGOTIABLE)
+Testing requirements:
+- MUST follow a test-first workflow: tests (unit, integration, contract) are written and observed to fail before implementation begins.
+- MUST include automated unit tests for logic, integration tests for interactions, and contract tests for public interfaces where applicable.
+- MUST set measurable coverage targets for critical modules; coverage is a signal, not the sole gate—tests MUST assert behavior.
+- All CI pipelines MUST run tests and fail on regressions; flaky tests MUST be tracked and fixed promptly.
+Rationale: Enforcing test-first practices preserves correctness and enables safe refactoring.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### User Experience Consistency
+UX requirements:
+- MUST follow the project's design system and accessibility guidelines; deviations require explicit design approval and rationale.
+- MUST provide consistent error states, messaging tone, and affordances across UI surfaces and CLI/SDK interfaces.
+- SHOULD include small, testable user journeys in specs and acceptance criteria that validate UX consistency.
+Rationale: Consistent UX reduces cognitive load for users and support burden for the team.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### Performance Requirements
+Performance requirements:
+- MUST define performance goals in each plan/spec (e.g., latency p95, memory budget, throughput targets).
+- Critical paths MUST include benchmarks and a simple performance regression test where practical.
+- Changes that materially affect performance MUST include before/after measurements and an acceptance threshold.
+Rationale: Explicit performance expectations prevent regressions and ensure acceptable user experience at scale.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Observability & Versioning
+Operational and release requirements:
+- MUST include structured logging, meaningful metrics, and error reporting where applicable to enable rapid diagnosis.
+- MUST follow semantic versioning for published packages and document breaking changes in CHANGELOGs and migration notes.
+- SHOULD include health checks and basic runtime diagnostics for services in production.
+Rationale: Observability and clear versioning enable safe operations and evolution of the system.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Additional Constraints
+Security, compliance, and stack choices are documented in each feature plan. Any deviation from default stacks
+MUST be justified in the plan and reviewed by an appropriate owner.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Development Workflow & Quality Gates
+- All PRs MUST include: linked plan/spec, tests demonstrating behavior, and a short description of how the change
+	satisfies the relevant constitution principles (Code Quality, Testing, UX, Performance, Observability).
+- CI gates MUST enforce linting, tests, and basic build verification. Performance and UX gates are added per-plan when
+	the plan marks a component as critical for those principles.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+Amendments and versioning:
+- This constitution is the authoritative source for engineering principles. Changes MUST be documented as an amendment
+	with a rationale and migration plan.
+- Versioning policy: initial ratification sets `1.0.0`. MAJOR increments are required for backward-incompatible governance
+	changes; MINOR for added principles or material expansions; PATCH for clarifications and wording fixes.
+- Compliance reviews: major projects or infra changes MUST include a short compliance checklist mapping to the relevant
+	principles; maintainers may request follow-up remediation tasks.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): Provide original adoption date | **Last Amended**: 2026-02-06

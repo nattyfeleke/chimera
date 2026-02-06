@@ -1,0 +1,68 @@
+# AI Review Policy: Code and Spec Alignment
+# Developer-facing AI reviewer policy for Project Chimera
+
+policy:
+  name: chimera-ai-review-policy
+  description: |
+    Enforce spec alignment and basic security checks. Developer MCP/AI reviews
+    MUST follow these rules. AI reviews are advisory and MUST NOT bypass CI or
+    human governance.
+
+rules:
+  - id: spec-alignment-1
+    category: spec-alignment
+    severity: error
+    description: |
+      If a change adds or modifies implementation files (code, modules), the
+      change MUST reference an updated specification file under `specs/` or a
+      clearly scoped requirement ID. If no spec file or requirement ID is
+      referenced in the change/PR description, flag as violation.
+    checks:
+      - "Detect added/modified source files in code paths (e.g., src/, skills/)"
+      - "Verify that at least one changed file under `specs/` is present OR the PR description contains an explicit `specs/` file path and requirement ID"
+      - "If neither condition is met, mark as failed (human review required)"
+
+  - id: spec-acceptance-1
+    category: spec-alignment
+    severity: warning
+    description: |
+      Ensure changed or newly added spec files contain explicit 'Acceptance Criteria'.
+      If 'Acceptance Criteria' is missing or ambiguous in a modified spec, flag for
+      clarification; require human approval before merging.
+    checks:
+      - "For each changed file under `specs/`, search for the literal phrase 'Acceptance Criteria' and for at least one testable bullet."
+      - "If missing, produce an advisory message and block auto-approval."
+
+  - id: security-1
+    category: security
+    severity: error
+    description: |
+      Detect hardcoded secrets or credentials in code changes. Any occurrence of
+      obvious secret patterns MUST be flagged as a critical security violation.
+    checks:
+      - "Scan changed files for patterns like 'password=', 'secret=', 'API_KEY', long base64-like strings, or private key headers (BEGIN PRIVATE KEY)."
+      - "If matches are found, mark as failed and require remediation."
+
+  - id: security-2
+    category: security
+    severity: warning
+    description: |
+      Warn about unchecked external calls in new code (HTTP requests, subprocess
+      calls) that lack explicit error handling or security review.
+    checks:
+      - "Detect added code that invokes external network calls (http, requests, fetch) or subprocess/spawn without surrounding validation comments."
+      - "Emit a warning and require reviewer acknowledgement."
+
+  - id: governance-1
+    category: governance
+    severity: error
+    description: |
+      AI reviewers MUST NOT auto-approve PRs that introduce implementation
+      changes without corresponding spec updates. Human approval is required for
+      any change that alters behavior or interfaces.
+    checks:
+      - "If a PR contains implementation code changes and no spec change or explicit human-assigned approval flag, block automated approval."
+
+notes:
+  - "Developer MCP reviewers MUST treat results as advisory; CI and human review remain the final authority."
+  - "This policy defines checks and guidance only; it does not implement scanners."

@@ -1,0 +1,29 @@
+name: CI Validate
+
+on:
+  push: {}
+  pull_request: {}
+
+jobs:
+  validate:
+    name: Validate specs and tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install make
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends make
+
+      - name: Run spec-check
+        run: make spec-check
+
+      - name: Run tests
+        run: make test
